@@ -41,7 +41,7 @@ help: ##@Help Show this help
 	@perl -e '$(HELP_FUN)' $(MAKEFILE_LIST)
 
 db:  ##@Database Create database with docker-compose
-	#docker-compose -f docker-compose.yml up -d --remove-orphans
+	docker-compose -f docker-compose.yml up -d --remove-orphans
 
 lint:  ##@Code Check code with pylint
 	poetry run python3 -m pylint $(CODE)

@@ -18,6 +18,7 @@ from tests.utils import make_alembic_config
 from app.__main__ import get_app
 from app.config.utils import get_settings
 from app.db.connection import SessionManager
+from app.db.models import User
 
 
 @pytest.fixture(scope="session")
@@ -115,3 +116,20 @@ def session_factory_async(engine_async) -> sessionmaker:
 async def session(session_factory_async) -> AsyncSession:
     async with session_factory_async() as session:
         yield session
+
+
+@pytest.fixture
+async def user_sample(session) -> User:
+    """
+    Creates minimum user sample for tests.
+    """
+    settings = get_settings()
+    new_object = User(
+        username='user',
+        password=settings.PWD_CONTEXT.hash("user-password"),
+        email='user@example.com'
+    )
+    session.add(new_object)
+    await session.commit()
+    await session.refresh(new_object)
+    return new_object
