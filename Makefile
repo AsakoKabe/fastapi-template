@@ -41,7 +41,7 @@ help: ##@Help Show this help
 	@perl -e '$(HELP_FUN)' $(MAKEFILE_LIST)
 
 db:  ##@Database Create database with docker-compose
-	## docker-compose -f docker-compose.yml up -d --remove-orphans
+	#docker-compose -f docker-compose.yml up -d --remove-orphans
 
 lint:  ##@Code Check code with pylint
 	poetry run python3 -m pylint $(CODE)
@@ -60,7 +60,7 @@ revision:  ##@Database Create new revision file automatically with prefix (ex. 2
 	cd $(APPLICATION_NAME)/db && alembic revision --autogenerate
 
 open_db:  ##@Database Open database inside docker-image
-	docker exec -it bookmark_postgres psql -d $(POSTGRES_DB) -U $(POSTGRES_USER)
+	docker exec -it postgres psql -d $(POSTGRES_DB) -U $(POSTGRES_USER)
 
 test:  ##@Testing Test application with pytest
 	make db && $(TEST)

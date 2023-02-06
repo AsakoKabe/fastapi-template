@@ -19,7 +19,7 @@ def get_app() -> FastAPI:
     """
     Creates application and all dependable objects.
     """
-    description = "Микросервис, реализующий возможность укорачивать ссылки."
+    description = "Description"
 
     tags_metadata = [
         {
